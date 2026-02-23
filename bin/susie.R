@@ -1,56 +1,75 @@
 #!/usr/bin/env Rscript
 suppressPackageStartupMessages({ library(susieR) })
 
-args <- commandArgs(trailingOnly=TRUE)
-sumstats_path <- args[1]
-ld_path <- args[2]
-out_dir <- args[3]
+args <- commandArgs(trailingOnly = TRUE)
+if (length(args) < 6) {
+  stop("Usage: Rscript susie.R <pheno_id> <locus_sumstats> <L> <R_path> <n> <max_iter> [out_dir]")
+}
 
-res_dir <- file.path(out_dir, "res")
-dir.create(res_dir, recursive=TRUE, showWarnings=FALSE)
-out_prefix <- file.path(res_dir, basename(out_dir))
+pheno_id       <- args[1]
+locus_sumstats <- args[2]
+L              <- as.numeric(args[3])
+R_path         <- args[4]
+n              <- as.numeric(args[5])
+max_iter       <- as.numeric(args[6])
 
-d <- read.table(sumstats_path, header=TRUE, sep="\t", stringsAsFactors=FALSE)
+locus_dir <- basename(dirname(locus_sumstats))
+out_dir <- file.path("..", "outputs", "susie", pheno_id, locus_dir)
+dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
+df <- read.table(locus_sumstats, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+R <- as.matrix(read.table(gzfile(R_path), header = FALSE))
+storage.mode(R) <- "double"
 
-if (!("Z" %in% names(d))) d$Z <- d$BETA / d$SE
-if (!("N" %in% names(d))) stop("missing N")
-if (!all(c("SNP","A1","A2","BETA","SE","Z") %in% names(d))) stop("missing cols")
+run_susie <- function(df, R, L=1, n, estimate_residual_variance=FALSE, max_iter=5000) {
+  z <- df$BETA / df$SE
+  fit <- susie_rss(
+    z = z,
+    R = R,
+    n = n,
+    L = L,
+    estimate_residual_variance = estimate_residual_variance,
+    max_iter = max_iter
+  )
+  
+  cs_list <- fit$sets$cs
+  cs_df <- data.frame()
+  if (!is.null(cs_list) && length(cs_list) > 0) {
+    for (i in seq_along(cs_list)) {
+      nm <- names(cs_list)[i]
+      if (is.null(nm) || nm == "") nm <- paste0("L", i)
+      idx <- cs_list[[i]]
+      df_cs <- data.frame(
+        CS  = nm,
+        SNP = df$SNP[idx],
+        BP  = df$BP[idx],
+        P   = df$P[idx],
+        PIP = fit$pip[idx],
+        stringsAsFactors = FALSE
+      )
+      df_cs <- df_cs[order(df_cs$PIP, decreasing=TRUE), ]
+      cs_df <- rbind(cs_df, df_cs)
+    }
+  }
+  
+  list(fit = fit, cs = cs_df)
+}
 
-R <- as.matrix(read.table(gzfile(ld_path), header=FALSE))
-snps <- readLines(sub("ld\\.ld\\.gz$", "ld.snplist", ld_path))
+res <- run_susie(
+  df, 
+  R,
+  L = L,
+  n = n,
+  max_iter = max_iter
+)
 
-d <- d[d$SNP %in% snps, ]
-d <- d[match(snps, d$SNP), ]
-if (nrow(d) != nrow(R)) stop(paste("LD dim mismatch:", nrow(R), "vs", nrow(d)))
+pip_df <- data.frame(
+  SNP = df$SNP,
+  BP = df$BP,
+  PIP = res$fit$pip,
+  stringsAsFactors = FALSE
+)
 
-ref <- read.table(file.path(out_dir, "ld", "ref_alleles.tsv"), header=FALSE, sep="\t", stringsAsFactors=FALSE)
-colnames(ref) <- c("SNP","REF_A1","REF_A2")
-ref <- ref[match(snps, ref$SNP), ]
-
-okref <- !is.na(ref$SNP)
-d <- d[okref, ]
-ref <- ref[okref, ]
-R <- R[okref, okref, drop=FALSE]
-
-flip <- (d$A1 == ref$REF_A2 & d$A2 == ref$REF_A1)
-keep <- (d$A1 == ref$REF_A1 & d$A2 == ref$REF_A2) | flip
-
-d <- d[keep, ]
-ref <- ref[keep, ]
-R <- R[keep, keep, drop=FALSE]
-
-d$Z[flip[keep]] <- -d$Z[flip[keep]]
-d$BETA[flip[keep]] <- -d$BETA[flip[keep]]
-
-n <- as.integer(median(d$N, na.rm=TRUE))
-fit <- susie_rss(z=d$Z, R=R, n=n, L=10, estimate_residual_variance=FALSE, max_iter=500)
-
-write.table(data.frame(SNP=d$SNP, PIP=fit$pip),
-            paste0(out_prefix, ".pip.tsv"),
-            sep="\t", row.names=FALSE, quote=FALSE)
-
-write.table(summary(fit)$cs,
-            paste0(out_prefix, ".credible_sets.tsv"),
-            sep="\t", row.names=FALSE, quote=FALSE)
-
-saveRDS(fit, paste0(out_prefix, ".susie.rds"))
+pip_df <- pip_df[order(pip_df$PIP, decreasing=TRUE), ]
+saveRDS(res$fit, file.path(out_dir, paste0("res_", pheno_id, ".rds")))
+write.table(res$cs, file.path(out_dir, paste0("cs_", pheno_id, ".tsv")), sep="\t", row.names=FALSE, quote=FALSE)
+write.table(pip_df, file.path(out_dir, paste0("pip_", pheno_id, ".tsv")), sep="\t", row.names=FALSE, quote=FALSE)
