@@ -47,6 +47,8 @@ include { ADD_NEFF }       from './modules/add_neff'
 include { LDSC_PAIRWISE }  from './subworkflows/ldsc_pairwise'
 include { HDL_L_PAIRS }    from './subworkflows/hdl_pairs'
 include { SUMHER_RUN }     from './subworkflows/sumher_run'
+include { LAVA_GWAS_PREP } from './modules/lava_prep'
+include { LAVA_RUN }       from './subworkflows/lava_pairwise'
 
 // nextflow run main.nf -profile local  -c conf/local/nextflow.config --input assets/gwas.tsv --pairs assets/ldsc_pairs.tsv --outdir results
 // nextflow run main.nf -profile docker -c conf/local/nextflow.config --input assets/gwas.tsv --pairs assets/ldsc_pairs.tsv --outdir results
@@ -108,6 +110,8 @@ workflow {
   ldsc_r = file("${workflow.launchDir}/bin/ldsc.R")
   hdl_l_r = file("${workflow.launchDir}/bin/hdl_l.R")
   calc_p = file("${workflow.launchDir}/bin/calc_p.py")
+  lava_data_prep = file("${workflow.launchDir}/bin/prep_data.py")
+  lava_r = file("${workflow.launchDir}/bin/lava_pair.R")
 
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
@@ -128,6 +132,11 @@ workflow {
   plink_dir = file("${workflow.launchDir}/ref/ldsc/1000G_EUR_Phase3_plink")
   ldak_bin = file("${workflow.launchDir}/ref/SumHer/LDAK/${params.ldak_os}")
 
+  // ref (LAVA)
+  lava_ref_dir = file("${workflow.launchDir}/ref/lava/lava_ref")
+  lava_ref_prefix = "lava-ukb-v1.1"
+  loci_file = file("${workflow.launchDir}/ref/lava/hdll_blocks.coords.loci")
+
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
   // ~~~~~~~~  ~~~~~~~~~~~~~~ ~~~~~~~~ //
@@ -137,6 +146,7 @@ workflow {
   // QC + NEFF
   ch_qc = QC_GWAS(ch_in, qc_script).ldsc_ready
   ch_neff = ADD_NEFF(ch_qc, neff_script).ldsc_neff
+
   ch_sum = ch_neff.map { meta, f -> tuple(meta.id, f) }
   ch_sumstats = ch_neff.map { meta, f -> tuple(meta, f) }
 
@@ -230,8 +240,15 @@ workflow {
     calc_p,
     ldak_bin
   )
-  
+
   /*
-  MiXeR
+  LAVA
   */
+
+  // ch_qc
+  // ch_neff
+  // TO Do´s
+  // -> ADAPT from lava_main.nf
+
+  
 }
