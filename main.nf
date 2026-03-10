@@ -42,13 +42,14 @@ ${RESET}
 ------------------------------------------------------------
 """
 
-include { QC_GWAS }        from './modules/qc_gwas'
-include { ADD_NEFF }       from './modules/add_neff'
-include { LDSC_PAIRWISE }  from './subworkflows/ldsc_pairwise'
-include { HDL_L_PAIRS }    from './subworkflows/hdl_pairs'
-include { SUMHER_RUN }     from './subworkflows/sumher_run'
-include { LAVA_PREP }      from './subworkflows/lava_prep'
-include { LAVA_RUN }       from './subworkflows/lava_pairwise'
+include { QC_GWAS }                   from './modules/qc_gwas'
+include { ADD_NEFF }                  from './modules/add_neff'
+include { LDSC_PAIRWISE }             from './subworkflows/ldsc_pairwise'
+include { HDL_L_PAIRS }               from './subworkflows/hdl_pairs'
+include { SUMHER_RUN }                from './subworkflows/sumher_run'
+include { LAVA_PREP }                 from './subworkflows/lava_prep'
+include { LAVA_RUN }                  from './subworkflows/lava_pairwise'
+include { CONJFDR_DATA_PREP; CONJFDR} from './modules/conjFDR'
 
 // nextflow run main.nf -profile local  -c conf/local/nextflow.config --input assets/gwas.tsv --pairs assets/ldsc_pairs.tsv --outdir results
 // nextflow run main.nf -profile docker -c conf/local/nextflow.config --input assets/gwas.tsv --pairs assets/ldsc_pairs.tsv --outdir results
@@ -112,6 +113,8 @@ workflow {
   calc_p = file("${workflow.launchDir}/bin/calc_p.py")
   lava_data_prep = file("${workflow.launchDir}/bin/prep_data.py")
   lava_r = file("${workflow.launchDir}/bin/lava_pair.R")
+  conjfdr_prep = file("${workflow.launchDir}/bin/conjFDR_prep.py")
+  conjfdr_r = file("${workflow.launchDir}/bin/conjFDR.R")
 
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
@@ -136,6 +139,9 @@ workflow {
   lava_ref_dir = file("${workflow.launchDir}/ref/lava/lava_ref")
   lava_ref_prefix = "lava-ukb-v1.1"
   loci_file = file("${workflow.launchDir}/ref/lava/hdll_blocks.coords.loci")
+
+  // ref (conjFDR)
+  conjfdr_refdir = file("${workflow.launchDir}/ref/conjFDR")
 
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
   // ~~~~~~~~ ~~~~~~~~~~~~~~~ ~~~~~~~~ // 
@@ -245,10 +251,55 @@ workflow {
   LAVA
   */
 
-  // ch_qc
-  // ch_neff
-  // TO Do´s
-  // -> ADAPT from lava_main.nf
+  /*
+  MiXeR
+  */
 
-  
+  /*
+  conjFDR
+  */
+
+  /*
+  Clump pleio hits
+  */
+
+  /*
+  define loci 
+  */
+
+  /*
+  Bayesian COLOC
+  */
+
+  /*
+  Fine-mapping (SuSiE)
+  */
+
+  /* 
+  FUMA-prep
+  */
+
+  /*
+  MAGMA
+  */
+
+  /*
+  Map genes 
+  */
+
+  /*
+  SMR + HEIDI
+  */
+
+  /*
+  SMR MAPPING / CORRECTION / INTERPRETATION
+  */
+
+  /*
+  sc-eQTL mapping
+  */
+
+  /*
+  sc-eQTL coloc
+  */
 }
