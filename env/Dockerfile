@@ -4,6 +4,7 @@ FROM mambaorg/micromamba:1.5.10
 # wget https://ctg.cncr.nl/software/MAGMA/prog/magma_v1.10.zip
 # unzip magma_v1.10.zip
 # docker build -t neurobridge:1 . - loop in nf and check if already there if not install
+# > Adapt SMR installation
 
 USER root
 
@@ -14,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgit2-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN R -q -e "install.packages(c('remotes','data.table','progress','tidyverse','readr','dplyr'), repos='https://cloud.r-project.org')" && \
+RUN R -q -e "install.packages(c('remotes','data.table','progress','tidyverse','readr','dplyr','coloc'), repos='https://cloud.r-project.org')" && \
     R -q -e "if(!requireNamespace('BiocManager', quietly=TRUE)) install.packages('BiocManager', repos='https://cloud.r-project.org')" && \
     R -q -e "BiocManager::install(c('GenomicRanges','IRanges','S4Vectors','BiocParallel'), ask=FALSE, update=FALSE)" && \
     R -q -e "remotes::install_github('alexploner/cfdr.pleio', build_vignettes=FALSE)" && \
