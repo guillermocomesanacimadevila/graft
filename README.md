@@ -45,9 +45,9 @@
 
 ## Steps
 
-### Download reference data!
+### Download reference data
 
-> Download **[here](https://doi.org/10.5281/zenodo.18986935)** 
+> Download it **[here](https://doi.org/10.5281/zenodo.18986935)**.
 
 ---
 
