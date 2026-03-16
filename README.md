@@ -137,7 +137,7 @@ nextflow run workflows/neurobridge/main_<input_method>.nf \
   -c conf/local/nextflow.config \
   --input assets/gwas.tsv \
   --pairs assets/ldsc_pairs.tsv \
-  --outdir results -resume
+  --outdir results 
 ```
 
 ---
