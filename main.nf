@@ -19,21 +19,11 @@ def RESET = '\033[0m'
 
 println """
 ${GREEN}${BOLD}
- ███╗   ██╗███████╗       ██████╗ ██████╗ ██████╗ ███████╗
- ████╗  ██║██╔════╝      ██╔════╝██╔═══██╗██╔══██╗██╔════╝
- ██╔██╗ ██║█████╗  █████╗██║     ██║   ██║██████╔╝█████╗
- ██║╚██╗██║██╔══╝  ╚════╝██║     ██║   ██║██╔══██╗██╔══╝
- ██║ ╚████║██║            ╚██████╗╚██████╔╝██║  ██║███████╗
- ╚═╝  ╚═══╝╚═╝             ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
-${RESET}
-
-${GREEN}${BOLD}
-███╗   ██╗███████╗██╗   ██╗██████╗  ██████╗ ██████╗ ██████╗ ██╗██████╗  ██████╗ ███████╗
-████╗  ██║██╔════╝██║   ██║██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██║██╔══██╗██╔════╝ ██╔════╝
-██╔██╗ ██║█████╗  ██║   ██║██████╔╝██║   ██║██████╔╝██████╔╝██║██║  ██║██║  ███╗█████╗
-██║╚██╗██║██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══██╗██╔══██╗██║██║  ██║██║   ██║██╔══╝
-██║ ╚████║███████╗╚██████╔╝██   ██╔╝╚█████╔╝███████║██║  ██║██║██████╔╝╚██████╔╝███████╗
-╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═════╝  ╚═════╝ ╚══════╝
+                                          ,--./,-.
+          ___     __   __   __   ___     /,-._.--~\ 
+    |\ | |__  __ /  ` /  \ |__) |__         }  {
+    | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                          `._,._,'
 ${RESET}
 
     Escott-Price Lab | UKDRI Cardiff
@@ -42,14 +32,19 @@ ${RESET}
 ------------------------------------------------------------
 """
 
-include { QC_GWAS }                   from './modules/qc_gwas'
-include { ADD_NEFF }                  from './modules/add_neff'
-include { LDSC_PAIRWISE }             from './subworkflows/ldsc_pairwise'
-include { HDL_L_PAIRS }               from './subworkflows/hdl_pairs'
-include { SUMHER_RUN }                from './subworkflows/sumher_run'
-include { LAVA_PREP }                 from './subworkflows/lava_prep'
-include { LAVA_RUN }                  from './subworkflows/lava_pairwise'
-include { CONJFDR_DATA_PREP; CONJFDR} from './modules/conjFDR'
+include { QC_GWAS }                                     from './modules/local/qc_gwas'
+include { ADD_NEFF }                                    from './modules/local/add_neff'
+include { LDSC_PAIRWISE }                               from './subworkflows/ldsc_pairwise'
+include { HDL_L_PAIRS }                                 from './subworkflows/hdl_pairs'
+include { SUMHER_RUN }                                  from './subworkflows/sumher_run'
+include { LAVA_PREP }                                   from './subworkflows/lava_prep'
+include { LAVA_RUN }                                    from './subworkflows/lava_pairwise'
+include { CONJFDR_DATA_PREP; CONJFDR}                   from './modules/local/conjFDR'
+include { LD_CLUMP }                                    from './modules/local/ld_clump'
+include { DEFINE_LOCI }                                 from './modules/local/def_loci'
+include { GWAS_COLOCALISATION }                         from './modules/local/gwas_coloc'
+include { GEN_LD_MATRIX }                               from './modules/local/ld_matrix'
+include { SUSIE_OVERLAP_MAP }                           from './modules/local/susie'
 
 // nextflow run main.nf -profile local  -c conf/local/nextflow.config --input assets/gwas.tsv --pairs assets/ldsc_pairs.tsv --outdir results
 // nextflow run main.nf -profile docker -c conf/local/nextflow.config --input assets/gwas.tsv --pairs assets/ldsc_pairs.tsv --outdir results
