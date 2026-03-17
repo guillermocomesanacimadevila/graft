@@ -1,0 +1,53 @@
+# -----------------------------------------------------------------------------
+# neurobridge — Stage 1 parameter file
+# -----------------------------------------------------------------------------
+# This file defines user-adjustable parameters controlling QC, genetic analyses,
+# locus definition, and fine-mapping.
+# All parameters can be overridden at runtime via `-params-file`.
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# Input / output
+# -----------------------------------------------------------------------------
+input: "assets/gwas.tsv"          # GWAS samplesheet (trait-level metadata and file paths)
+pairs: "assets/ldsc_pairs.tsv"    # Trait-pair definitions for cross-trait analyses
+outdir: "results"                 # Output directory for all pipeline results
+
+# -----------------------------------------------------------------------------
+# QC (GWAS harmonisation)
+# -----------------------------------------------------------------------------
+maf_min: 0.01        # Minimum minor allele frequency threshold (variants below removed)
+info_min: 0.90       # Minimum imputation INFO score threshold
+
+# -----------------------------------------------------------------------------
+# SumHer (LDAK-based heritability / rg)
+# -----------------------------------------------------------------------------
+power: -0.25         # LDAK heritability model parameter (recommended default)
+thresh: 0.01         # SNP inclusion threshold for tagging / model fitting
+do_tagging: false    # Whether to run LDAK tagging step (required for full SumHer workflow)
+
+# -----------------------------------------------------------------------------
+# HDL-L (local genetic correlation)
+# -----------------------------------------------------------------------------
+cov_min: 0           # Minimum coverage threshold for local rg estimation
+
+# -----------------------------------------------------------------------------
+# LD clumping (PLINK) — applied to conjFDR hits
+# -----------------------------------------------------------------------------
+clump_r2: 0.6        # LD threshold for defining independent signals
+clump_kb: 1000       # Window size (kb) for clumping
+merge_kb: 500        # Distance (kb) to merge nearby loci
+ld_r2: 0.1           # LD threshold for defining locus boundaries
+ld_kb: 250           # LD window size (kb)
+
+# -----------------------------------------------------------------------------
+# Locus definition
+# -----------------------------------------------------------------------------
+window: 500000       # Genomic window around lead SNP (bp)
+                     # e.g. 500000 = ±500 kb around lead variant
+
+# -----------------------------------------------------------------------------
+# SuSiE fine-mapping
+# -----------------------------------------------------------------------------
+susie_L: 1           # Maximum number of causal components (L = 1 recommended when using external LD / low confidence LD)
+max_iter: 5000       # Maximum number of optimisation iterations
