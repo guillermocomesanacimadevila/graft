@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7979b819-725d-4585-9379-d61b6b308e5f"
+  <img src="https://github.com/user-attachments/assets/24c5c653-8a83-4a47-9604-6427ab210c65"
        alt="nf-core-neurobridge_logo_light"
        width="1600">
 </p>
@@ -38,7 +38,9 @@
 ## Pipeline
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a15c8413-a93c-43b7-b647-b0fa5a38def2"
+  <img src="https://github.com/user-attachments/assets/7979b819-725d-4585-9379-d61b6b308e5f<img width="2300" height="1000" alt="nf-core-graft_logo_light" src="https://github.com/user-attachments/assets/1d5282d5-66b0-48d4-b28d-77478878837b" />
+<img width="2300" height="1000" alt="nf-core-graft_logo_light" src="https://github.com/user-attachments/assets/acf853dd-e8b3-48c0-aaf0-54954221d971" />
+"
        alt="pipeline"
        width="1200">
 </p>
