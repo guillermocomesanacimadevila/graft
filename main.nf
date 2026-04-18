@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    nf-core/neurobridge
+    nf-core/graft
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Started on October 2025
     Escott-Price Lab; UK Dementia Research Institute
@@ -14,6 +14,7 @@ nextflow.enable.dsl=2
 */ 
 
 include { STAGE1_QC }      from './workflows/local/qc/main'
+include { STAGE1_ALIGN }   from './workflows/local/align/main'
 include { STAGE1_LDSC }    from './workflows/local/ldsc/main'
 include { STAGE1_HDL }     from './workflows/local/hdl/main'
 include { STAGE1_SUMHER }  from './workflows/local/sumher/main'
@@ -27,19 +28,19 @@ include { STAGE1_CONJFDR } from './workflows/local/conjfdr/main'
 
 // GRAFT: GWAS Relatedness, Architecture & Functional Trait mapping
 workflow {
-    /*STAGE1_QC()
-    STAGE1_LDSC()
-    STAGE1_HDL()
-    STAGE1_SUMHER()
+    STAGE1_QC()
+    STAGE1_ALIGN()
+    //STAGE1_LDSC()
+    // STAGE1_HDL()
+    //STAGE1_SUMHER()
     // STAGE1_LAVA()
-    */
-    STAGE1_CONJFDR()
-    // MiXeR
-    // LAVA - 
-    // conjFDR -
+    // STAGE1_MIXER()
+    // STAGE1_CONJFDR()
     // CLUMP - 
     // COLOC -
     // SUSIE -
+    // FUMA - 
+    // MAGMA - 
     // Bulk - SMR + HEIDI
     // Bulk - Coloc
     // sc - SMR + HEIDI
