@@ -14,14 +14,14 @@
 
 ## Authors
 
-**Guillermo Comesaña Cimadevila<sup>1 2 3</sup>** · Alfie Thain<sup>4</sup> · Marie-Joe Dib<sup>5</sup> · Philip Taylor<sup>1 2</sup> · Jeremy Hall<sup>2 3</sup> · Dervis Salih<sup>1 6</sup> · Nicholas Bray<sup>2</sup> · Emily Simmonds<sup>1</sup> · Valentina Escott-Price<sup>1 2†</sup>  
+**Guillermo Comesaña Cimadevila¹²³** · Alfie Thain⁴ · Marie-Joe Dib⁵ · Philip Taylor¹² · Jeremy Hall²³ · Dervis Salih¹⁶ · Nicholas Bray² · Emily Simmonds¹ · Valentina Escott-Price¹²†  
 
-<sup>1</sup> UK Dementia Research Institute, UK  
-<sup>2</sup> MRC Centre for Neuropsychiatric Genetics & Genomics, Cardiff University, Cardiff, UK  
-<sup>3</sup> MeOmics Technology Ltd, Cardiff, UK  
-<sup>4</sup> Division of Psychiatry, University College London, London, UK  
-<sup>5</sup> Nascent Studio, London, UK  
-<sup>6</sup> Department of Neuroscience, Physiology and Pharmacology, University College London, London, UK   
+<sup>¹</sup> UK Dementia Research Institute, UK  
+<sup>²</sup> MRC Centre for Neuropsychiatric Genetics & Genomics, Cardiff University, Cardiff, UK  
+<sup>³</sup> MeOmics Technology Ltd, Cardiff, UK  
+<sup>⁴</sup> Division of Psychiatry, University College London, London, UK  
+<sup>⁵</sup> Nascent Studio, London, UK  
+<sup>⁶</sup> Department of Neuroscience, Physiology and Pharmacology, University College London, London, UK  
 ---
 
 [![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB)]() 
