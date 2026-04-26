@@ -8,19 +8,20 @@
 
 ## Introduction
 
-**GRAFT** is a two-stage bioinformatics pipeline which takes two **genome-wide association study (GWAS) summary statistics** corresponding to two distinct traits (typically trait pairs where a pleiotropic relationship may be hypothesised). The pipeline covers analyses from estimating global heritability to functional approaches using **bulk and single-cell xQTL datasets**. In **Stage I**, neurobridge performs GWAS QC and computes **SNP heritability**, polygenicity and discoverability, **global genetic correlation** (across multiple methods), and local genetic correlation. It then identifies loci showing evidence of pleiotropic association (via **conjFDR**) and performs **Bayesian colocalisation** and **fine-mapping** to prioritise candidate causal variants/loci. Following this stage, loci can be annotated using **FUMA** (performed manually) to map variants to genes and obtain basic functional annotation. In **Stage II**, neurobridge focuses on functional interpretation of the prioritised loci by integrating bulk and single-cell xQTL datasets and performing **gene prioritisation (via SMR)** and consequent GWAS-to-xQTL colocalisation of priorisited genes. In essence, Stage II adds multi-layer biological evidence to the genetic findings from **Stage I**.
+**GRAFT** is a two-stage bioinformatics pipeline which takes two **genome-wide association study (GWAS) summary statistics** corresponding to two distinct traits (typically trait pairs where a pleiotropic relationship may be hypothesised). The pipeline covers analyses from estimating global heritability to functional approaches using **bulk and single-cell xQTL datasets**. In **Stage I**, graft performs GWAS QC and computes **SNP heritability**, polygenicity and discoverability, **global genetic correlation** (across multiple methods), and local genetic correlation. It then identifies loci showing evidence of pleiotropic association (via **conjFDR**) and performs **Bayesian colocalisation** and **fine-mapping** to prioritise candidate causal variants/loci. Following this stage, loci can be annotated using **FUMA** (performed manually) to map variants to genes and obtain basic functional annotation. In **Stage II**, graft focuses on functional interpretation of the prioritised loci by integrating bulk and single-cell xQTL datasets and performing **gene prioritisation (via SMR)** and consequent GWAS-to-xQTL colocalisation of priorisited genes. In essence, Stage II adds multi-layer biological evidence to the genetic findings from **Stage I**.
 
 ---
 
 ## Authors
 
-**Guillermo Comesaña Cimadevila¹ ² ³** · Alfie Thain⁴ · Philip Taylor¹ ² · Jeremy Hall² ³ · Dervis Salih¹ ⁵ · Nicholas Bray² · Emily Simmonds¹ · Valentina Escott-Price¹ ²†  
+**Guillermo Comesaña Cimadevila¹²³** · Alfie Thain⁴ · Marie-Joe Dib⁵ · Philip Taylor¹² · Jeremy Hall²³ · Dervis Salih¹⁶ · Nicholas Bray² · Emily Simmonds¹ · Valentina Escott-Price¹²†  
 
-<sup>¹</sup> UK Dementia Research Institute, UK  
-<sup>²</sup> MRC Centre for Neuropsychiatric Genetics & Genomics, Cardiff University, Cardiff, UK  
-<sup>³</sup> MeOmics Technology Ltd, Cardiff, UK  
-<sup>⁴</sup> Division of Psychiatry, University College London, London, UK  
-<sup>⁵</sup> Department of Neuroscience, Physiology and Pharmacology, University College London, London, UK  
+ ¹ UK Dementia Research Institute, UK  
+ ² MRC Centre for Neuropsychiatric Genetics & Genomics, Cardiff University, Cardiff, UK  
+ ³ MeOmics Technology Ltd, Cardiff, UK  
+ ⁴ Division of Psychiatry, University College London, London, UK  
+ ⁵ Nascent Studio Ltd, London, UK  
+ ⁶ Department of Neuroscience, Physiology and Pharmacology, University College London, London, UK  
 
 ---
 
@@ -58,16 +59,16 @@
 ### Build Docker image
 
 ```bash
-cd neurobridge/
+cd graft/
 ```
 
 ```bash
-docker build --no-cache -t neurobridge:1 -f env/Dockerfile .
+docker build --no-cache -t graft:1 -f env/Dockerfile .
 ```
 
 ---
 
-### Run neurobridge! (with Docker)
+### Run graft! (with Docker)
 
 ```bash
 nextflow run . \
@@ -108,11 +109,11 @@ nextflow run . \
 3. Clone repo and run!
    
 ```bash
-git clone https://github.com/guillermocomesanacimadevila/neurobridge.git
+git clone https://github.com/guillermocomesanacimadevila/graft.git
 ```
 
 ```bash
-cd neurobridge/
+cd graft/
 ```
 
 ## Usage
@@ -133,10 +134,10 @@ nextflow run main.nf \
 
 ** Note ** 
 
-> You can also run each method within [`workflows/neurobridge`], individually like so =>
+> You can also run each method within [`workflows/graft`], individually like so =>
 
 ```bash
-nextflow run workflows/neurobridge/main_<input_method>.nf \
+nextflow run workflows/graft/main_<input_method>.nf \
   -profile docker \
   -c conf/local/nextflow.config \
   -params-file assets/params.stage1.yaml 
