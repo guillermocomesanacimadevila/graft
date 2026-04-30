@@ -74,7 +74,9 @@ docker build --no-cache -t graft:1 -f env/Dockerfile .
 nextflow run . \
   -profile docker \
   -c conf/local/nextflow.config \
-  -params-file assets/params.stage1.yaml 
+  -params-file assets/params.stage1.yaml \
+  --pairs assets/ldsc_pairs.tsv \
+  --qtls assets/qtls.tsv
 ```
 
 > [!WARNING]
