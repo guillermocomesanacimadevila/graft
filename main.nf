@@ -27,30 +27,70 @@ include { STAGE1_SUSIE }        from './workflows/local/susie/main'
 include { STAGE1_FUMA }         from './workflows/local/fuma/main'
 include { STAGE1_TARGET_GENES } from './workflows/local/target_genes/main'
 include { STAGE1_QTL_MANIFEST } from './workflows/local/qtl_manifest/main'
-// include { STAGE1_SMR_HEIDI } from './workflows/local/fuma/main'
-// include { STAGE1_QTL_COLOC } from './workflows/local/fuma/main'
+include { STAGE1_SMR }          from './workflows/local/smr/main'
 
-// ADD JWT IEU OpenGWAS token to twosamplemr/ module 
-// ADDD INTEAD OF Phenoscanner (ieu OpenGWAS API) => EBI-EMBL API GWAS Catalogue
 
-// cross-trait localised pipeline - bridges genetic and biological layers
 workflow {
-    STAGE1_QC()
-    STAGE1_LDSC()
-    STAGE1_HDL()
-    STAGE1_SUMHER()
-    STAGE1_QC()
-    STAGE1_TWOSAMPLEMR()
-    STAGE1_MAGMA()
-    STAGE1_LAVA()
-    STAGE1_CONJFDR()
-    STAGE1_DEF_LOCI()
-    STAGE1_GWAS_COLOC()
-    STAGE1_SUSIE()
-    STAGE1_FUMA()
-    STAGE1_TARGET_GENES()
-    STAGE1_QTL_MANIFEST()
-    // Grab target genes 
-    // Bulk / sc - SMR + HEIDI
-    // Bulk / sc - Coloc
+
+    log.info "---- Welcome to nf-core/graft!----"
+
+    if (params.run_qc) {
+        STAGE1_QC()
+    }
+
+    if (params.run_ldsc) {
+        STAGE1_LDSC()
+    }
+
+    if (params.run_hdl) {
+        STAGE1_HDL()
+    }
+
+    if (params.run_sumher) {
+        STAGE1_SUMHER()
+    }
+
+    if (params.run_twosamplemr) {
+        STAGE1_TWOSAMPLEMR()
+    }
+
+    if (params.run_magma) {
+        STAGE1_MAGMA()
+    }
+
+    if (params.run_lava) {
+        STAGE1_LAVA()
+    }
+
+    if (params.run_conjfdr) {
+        STAGE1_CONJFDR()
+    }
+
+    if (params.run_def_loci) {
+        STAGE1_DEF_LOCI()
+    }
+
+    if (params.run_gwas_coloc) {
+        STAGE1_GWAS_COLOC()
+    }
+
+    if (params.run_susie) {
+        STAGE1_SUSIE()
+    }
+
+    if (params.run_fuma) {
+        STAGE1_FUMA()
+    }
+
+    if (params.run_target_genes) {
+        STAGE1_TARGET_GENES()
+    }
+
+    if (params.run_qtl_manifest) {
+        STAGE1_QTL_MANIFEST()
+    }
+
+    if (params.run_smr) {
+        STAGE1_SMR()
+    }
 }
