@@ -78,8 +78,10 @@ nextflow run . \
   -profile docker \
   -c conf/local/nextflow.config \
   -params-file assets/params.stage1.yaml \
+  --input assets/gwas.tsv \
   --pairs assets/ldsc_pairs.tsv \
-  --qtls assets/qtls.tsv
+  --qtls assets/qtls.tsv \
+  -process.maxForks 1
 ```
 
 > [!WARNING]
