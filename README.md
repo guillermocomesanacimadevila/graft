@@ -63,7 +63,10 @@ cd graft/
 ```
 
 ```bash
-docker build --no-cache -t graft:1 -f env/Dockerfile .
+docker build --no-cache \
+  --platform linux/amd64 \
+  -t neurobridge:1 \
+  -f env/Dockerfile .
 ```
 
 ---
