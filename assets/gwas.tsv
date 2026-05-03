@@ -1,3 +1,0 @@
-id	gwas	sep	snp_col	chr_col	pos_col	a1_col	a2_col	beta_col	se_col	p_col	eaf_col	freq_case_col	freq_ctrl_col	n_case_col	n_ctrl_col	n_col	info_col	require_info	exclude_mhc	exclude_apoe	apoe_chr	apoe_start	apoe_end	drop_palindromes	keep_snps_only	cases	controls
-AD	data/AD/Kunkle_etal_2019_IGAP_Summary_statistics_published.tsv	\t	SNP	CHR	BP	Effect	Non_Effect	Beta	SE	P	Effect_allele_freq							false	true	false	19	44000000	46500000	true	true	21982	41944
-SCZ	data/PGC3_SCZ_wave3.cleaned.tsv	\t	ID	CHROM	POS	A1	A2	BETA	SE	PVAL		FCAS	FCON	NCAS	NCON		IMPINFO	true	true	false	19	44000000	46500000	true	true	67390	94015
