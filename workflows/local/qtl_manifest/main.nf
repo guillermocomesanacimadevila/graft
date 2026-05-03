@@ -1,15 +1,13 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl=2
 
-import neurobridge.ParamUtils
-
 include { QTL_MANIFEST_PREP } from '../../../subworkflows/local/qtl_manifest/main'
 
 workflow STAGE1_QTL_MANIFEST {
 
     main:
-    ParamUtils.requireParam(params.qtls, "qtls")
-    ParamUtils.requireParam(params.qtl_ids, "qtl_ids")
+    neurobridge.ParamUtils.requireParam(params.qtls, "qtls")
+    neurobridge.ParamUtils.requireParam(params.qtl_ids, "qtl_ids")
 
     if (!file(params.qtls).exists()) {
         error "QTL samplesheet not found: ${params.qtls}"
