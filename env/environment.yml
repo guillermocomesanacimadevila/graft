@@ -15,5 +15,6 @@ dependencies:
   - plink
   - pip:
       - polars
+      - liftover
       - adjustText
       - cellxgene-census
