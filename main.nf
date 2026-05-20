@@ -32,6 +32,13 @@ include { STAGE1_SMR }          from './workflows/local/smr/main'
 // include STAGE1_QTL_COLOC from './workflows/local/qtl_coloc/main'
 // include STAGE1_QTL_SUSIE from './workflows/local/qtl_susie/main'
 
+/*
+
+REMOVE
+--disable-freq-ck \\ from modules/smr_bulk
+
+*/
+
 workflow {
 
     log.info "Launching \033[1;36mnf-core/graft\033[0m"
@@ -86,21 +93,5 @@ workflow {
 
     if (params.run_target_genes) {
         STAGE1_TARGET_GENES()
-    }
-
-    qtl_manifest_ch = Channel.empty()
-
-    if (params.run_qtl_manifest) {
-        STAGE1_QTL_MANIFEST()
-        qtl_manifest_ch = STAGE1_QTL_MANIFEST.out.manifest
-    }
-    else {
-        qtl_manifest_ch = Channel.fromPath(
-            "${params.qtl_manifest_out}/qtl_manifest_*.tsv", checkIfExists: true
-        )
-    }
-
-    if (params.run_smr) {
-        STAGE1_SMR(qtl_manifest_ch)
     }
 }
