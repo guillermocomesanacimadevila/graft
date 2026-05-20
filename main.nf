@@ -26,18 +26,6 @@ include { STAGE1_GWAS_COLOC }   from './workflows/local/gwas_coloc/main'
 include { STAGE1_SUSIE }        from './workflows/local/susie/main'
 include { STAGE1_FUMA }         from './workflows/local/fuma/main'
 include { STAGE1_TARGET_GENES } from './workflows/local/target_genes/main'
-include { STAGE1_QTL_MANIFEST } from './workflows/local/qtl_manifest/main'
-include { STAGE1_SMR }          from './workflows/local/smr/main'
-
-// include STAGE1_QTL_COLOC from './workflows/local/qtl_coloc/main'
-// include STAGE1_QTL_SUSIE from './workflows/local/qtl_susie/main'
-
-/*
-
-REMOVE
---disable-freq-ck \\ from modules/smr_bulk
-
-*/
 
 workflow {
 
