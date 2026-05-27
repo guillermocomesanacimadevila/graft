@@ -154,8 +154,7 @@ set -euo pipefail
 
 cd {remote_project_dir}
 mkdir -p env logs work
-module load apptainer || module load Apptainer || true
-
+command -v apptainer >/dev/null 2>&1 || {{ echo "ERROR: apptainer not found"; exit 1; }}
 if [[ ! -f "{sif}" ]]; then
     echo "Container not found: {sif}"
     echo "Pulling: {image}"
