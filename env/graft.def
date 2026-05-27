@@ -1,0 +1,60 @@
+Bootstrap: docker
+From: mambaorg/micromamba:1.5.10
+
+%post
+    apt-get update && apt-get install -y --no-install-recommends \
+        r-base r-base-dev \
+        build-essential gfortran pkg-config \
+        libcurl4-openssl-dev libssl-dev libxml2-dev \
+        libgit2-dev \
+        libuv1-dev \
+        libfontconfig1-dev \
+        libharfbuzz-dev \
+        libfribidi-dev \
+        libfreetype6-dev \
+        libpng-dev \
+        libtiff5-dev \
+        libjpeg-dev \
+        && rm -rf /var/lib/apt/lists/*
+
+    R -q -e "install.packages(c('remotes','data.table','progress','tidyverse','readr','dplyr','coloc'), repos='https://cloud.r-project.org')"
+    R -q -e "if(!requireNamespace('BiocManager', quietly=TRUE)) install.packages('BiocManager', repos='https://cloud.r-project.org')"
+    R -q -e "BiocManager::install(c('GenomicRanges','IRanges','S4Vectors','BiocParallel'), ask=FALSE, update=FALSE)"
+    R -q -e "remotes::install_github('alexploner/cfdr.pleio', build_vignettes=FALSE)"
+    R -q -e "remotes::install_github('zhenin/HDL', subdir='HDL', upgrade='never', build_vignettes=FALSE)"
+    R -q -e "remotes::install_github('GenomicSEM/GenomicSEM', build_vignettes=FALSE)"
+    R -q -e "remotes::install_github('josefin-werme/LAVA', build_vignettes=FALSE)"
+    R -q -e "remotes::install_github('stephenslab/susieR', build_vignettes=FALSE)"
+    R -q -e "install.packages(c('fs','sass','bslib','rmarkdown','htmlwidgets','plotly','nortest'), repos='https://cloud.r-project.org')"
+    R -q -e "install.packages('TwoSampleMR', repos=c('https://mrcieu.r-universe.dev','https://cloud.r-project.org'))"
+    R -q -e "library(TwoSampleMR)"
+
+    micromamba create -y -n graft \
+        -c conda-forge \
+        -c bioconda \
+        python=3.12 \
+        pip \
+        numpy \
+        pandas \
+        scipy \
+        seaborn \
+        matplotlib \
+        scanpy \
+        statsmodels \
+        plink
+
+    micromamba run -n graft pip install \
+        polars \
+        liftover \
+        adjustText \
+        cellxgene-census
+
+    micromamba clean -a -y
+
+%environment
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    export PATH=/opt/conda/envs/graft/bin:/opt/conda/bin:$PATH
+    export CONDA_DEFAULT_ENV=graft
+
+%runscript
+    exec "$@"
