@@ -21,7 +21,7 @@ cd "${SLURM_SUBMIT_DIR}"
 mkdir -p logs work env
 module purge
 module load nextflow
-module load apptainer
+command -v apptainer >/dev/null 2>&1 || { echo "ERROR: apptainer not found"; exit 1; }
 
 nextflow run . \
   -profile singularity \
@@ -30,5 +30,4 @@ nextflow run . \
   --cpus "${CPUS}" \
   --time_hrs "${TIME_HRS}" \
   --memory "${MEMORY_GB} GB" \
-  --max_forks "${MAX_FORKS}" \
-  -resume
+  --max_forks "${MAX_FORKS}" 
