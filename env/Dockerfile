@@ -35,11 +35,12 @@ RUN R -q -e "install.packages(c('remotes','data.table','progress','tidyverse','r
     R -q -e "remotes::install_github('GenomicSEM/GenomicSEM', build_vignettes=FALSE)" && \
     R -q -e "remotes::install_github('josefin-werme/LAVA', build_vignettes=FALSE)" && \
     R -q -e "remotes::install_github('stephenslab/susieR', build_vignettes=FALSE)" && \
-    R -q -e "remotes::install_github('phenoscanner/phenoscanner', dependencies=TRUE, upgrade='never')" && \
+    # R -q -e "remotes::install_github('phenoscanner/phenoscanner', dependencies=TRUE, upgrade='never')" && \
     R -q -e "install.packages(c('fs','sass','bslib','rmarkdown','htmlwidgets','plotly','nortest'), repos='https://cloud.r-project.org')" && \
-    R -q -e "install.packages(c('RadialMR','TwoSampleMR','MRPRESSO'), repos=c('https://mrcieu.r-universe.dev','https://cloud.r-project.org'))" && \
-    R -q -e "install.packages('mr.raps', repos=c('https://mrcieu.r-universe.dev','https://cloud.r-project.org'))" && \
-    R -q -e "library(TwoSampleMR); library(MRPRESSO); library(mr.raps)"
+    R -q -e "install.packages(c('TwoSampleMR','MRPRESSO'), repos=c('https://mrcieu.r-universe.dev','https://cloud.r-project.org'))" && \
+    # R -q -e "install.packages(c('RadialMR','TwoSampleMR','MRPRESSO'), repos=c('https://mrcieu.r-universe.dev','https://cloud.r-project.org'))" && \
+    # R -q -e "install.packages('mr.raps', repos=c('https://mrcieu.r-universe.dev','https://cloud.r-project.org'))" && \
+    R -q -e "library(TwoSampleMR); library(MRPRESSO)"
 
 USER $MAMBA_USER
 COPY --chown=$MAMBA_USER:$MAMBA_USER env/environment.yml /tmp/environment.yml
