@@ -1,3 +1,0 @@
-id	qtl_type	qtl_modality	qtl_dir	file_prefix	file_suffix	snp_col	beta_col	se_col	ea_col	oa_col	eaf_col	pval_col	n_col	gene_col	chr_col	bp_col	build	sample_size
-eqtlgen_cis	bulk	eqtl	/Users/c24102394/Desktop/neurobridge/ref/xQTLs/eQTLs/eQTL_eQTLGen/eQTL_eQTLGen_cis_eQTL.txt	NA	NA	SNP	FRQ	BETA	A1	A2	NA	SE	NA	Gene	CHR	BP	hg19	31684
-fujita_eqtl	sc	eqtl	/Users/c24102394/Desktop/neurobridge/ref/sc_eQTLs/fujita2	celltype-eqtl-sumstats.	.tsv	snps	beta	se	ALT	REF	ALT_AF	pvalue	NA	gene_symbol	chr38	pos38	hg38	424

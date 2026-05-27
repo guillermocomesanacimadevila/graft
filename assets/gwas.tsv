@@ -1,3 +1,0 @@
-id	gwas	sep	snp_col	chr_col	pos_col	a1_col	a2_col	beta_col	se_col	p_col	eaf_col	freq_case_col	freq_ctrl_col	n_case_col	n_ctrl_col	n_col	info_col	require_info	exclude_mhc	exclude_apoe	apoe_chr	apoe_start	apoe_end	drop_palindromes	keep_snps_only	cases	controls
-AD	data/AD/AD.ldsc_ready_neff.tsv	\t	SNP	CHR	POS	Effect	Non_Effect	Beta	SE	P	FRQ	NA	NA	NA	NA	N	INFO	false	true	false	19	44000000	46500000	true	true	21982	41944
-SCZ	data/SCZ/SCZ.ldsc_ready_neff.tsv	\t	SNP	CHR	POS	A1	A2	BETA	SE	P	FRQ	NA	NA	NA	NA	N	INFO	true	true	false	19	44000000	46500000	true	true	67390	94015
