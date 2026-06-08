@@ -14,11 +14,10 @@
 
 ## Authors
 
-**Guillermo Comesaña Cimadevila¹²³** · Alfie Thain⁴ · Marie-Joe Dib⁵ · Philip Taylor¹² · Jeremy Hall²³ · Dervis Salih¹⁶ · Nicholas Bray² · Emily Simmonds¹ · Valentina Escott-Price¹²†  
+**Guillermo Comesaña Cimadevila¹²** · Alfie Thain⁴ · Marie-Joe Dib⁵ · Philip Taylor¹² · Jeremy Hall² · Dervis Salih¹⁶ · Nicholas Bray² · Emily Simmonds¹ · Valentina Escott-Price¹²†  
 
  ¹ UK Dementia Research Institute, UK  
  ² MRC Centre for Neuropsychiatric Genetics & Genomics, Cardiff University, Cardiff, UK  
- ³ MeOmics Technology Ltd, Cardiff, UK  
  ⁴ Division of Psychiatry, University College London, London, UK  
  ⁵ Nascent Studio Ltd, London, UK  
  ⁶ Department of Neuroscience, Physiology and Pharmacology, University College London, London, UK  
