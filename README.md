@@ -8,7 +8,7 @@
 
 ## Introduction
 
-**GRAFT** is a bioinformatics pipeline which takes two **genome-wide association study (GWAS) summary statistics** corresponding to two distinct traits and identifies QTL-informed, cross-trait drug targets. The pipeline covers analyses from estimating global heritability to bayesian fine-mapping. First, graft performs GWAS QC and computes **SNP heritability** and **global genetic correlation** (across multiple methods). It then identifies loci showing evidence of local genetic correlation (i.e. LAVA), or pleiotropy (via **conjFDR**) and performs **Bayesian colocalisation** and **fine-mapping** to prioritise candidate causal variants/loci. Following this stage, loci can be annotated using FUMA (performed manually) or by integrated mapping of variants within a ±X kb cis-window around each locus to map SNPs to genes and obtain basic functional annotation. 
+**GRAFT** is a bioinformatics pipeline which takes two **genome-wide association study (GWAS) summary statistics** corresponding to two distinct traits and identifies cross-trait drug targets. The pipeline covers analyses from estimating global heritability to bayesian fine-mapping. First, graft performs GWAS QC and computes **SNP heritability** and **global genetic correlation** (across multiple methods). It then identifies loci showing evidence of local genetic correlation (i.e. LAVA), or pleiotropy (via **conjFDR**) and performs **Bayesian colocalisation** and **fine-mapping** to prioritise candidate causal variants/loci. Following this stage, loci can be annotated using FUMA (performed manually) or by integrated mapping of variants within a ±X kb cis-window around each locus to map SNPs to genes and obtain basic functional annotation. 
 
 ---
 
