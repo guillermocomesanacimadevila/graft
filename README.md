@@ -41,21 +41,29 @@
 
 ---
 
-## Steps
+## Get Started!
 
-### Download reference data (53GB unzipped!)
+1. Install [`Nextflow`](https://www.nextflow.io/) `(>=25.10.0)`
 
-> Download it **[here](https://doi.org/10.5281/zenodo.18986935)**.
+2. Install [`Docker`](https://www.docker.com/) or [`Singularity`](https://docs.sylabs.io/guides/3.0/user-guide/)
+
+3. Download reference data (53GB unzipped!) > **[here](https://doi.org/10.5281/zenodo.18986935)**.
 
 ---
 
-### Adjust parameters
+4. Clone repo!
+   
+```bash
+git clone https://github.com/guillermocomesanacimadevila/graft.git
+cd graft/
+```
+
+5. Adjust parameters
 
 > Configure [`assets/params.stage1.yaml`] to your desired parameter set (**default parameters provided**).
-
----
-
-### Build Docker image (if local)
+> Configure [`assets/gwas.tsv`] and [`assets/ldsc_pairs.tsv`] with the corresponding info pertaining to your GWASs of use.
+ 
+6a. Build Docker image (if local)
 
 ```bash
 cd graft/
@@ -68,18 +76,35 @@ docker build --no-cache \
   -f env/Dockerfile .
 ```
 
----
-
-### Run graft! (with Docker if local or with Singularity if on SLURM HPC)
+6b. Run graft locally (with Docker)! 
 
 ```bash
 nextflow run . \
-  -profile <docker/singularity> \
+  -profile docker \
   -c conf/local/nextflow.config \
   -params-file assets/params.stage1.yaml \
   --input assets/gwas.tsv \
   --pairs assets/ldsc_pairs.tsv 
 ```
+
+---
+
+7. Run graft in HPC (with Singularity)! 
+
+```bash
+chmod +x bin/bootstrap_hpc.sh && bash bin/bootstrap_hpc.sh
+```
+
+```bash
+nextflow run . \
+    -profile singularity \
+    -params-file assets/params.stage1.yaml \
+    --input assets/gwas.tsv \
+    --pairs assets/ldsc_pairs.tsv \
+    --container "$HOME/graft/env/graft_1.0.0.sif"
+```
+
+---
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
@@ -99,23 +124,8 @@ nextflow run . \
 - **[MAGMA](https://ctg.cncr.nl/software/magma)** – Gene-level and pathway enrichment analysis  
 - **[COLOC](https://cran.r-project.org/web/packages/coloc/)** – Bayesian colocalisation analysis  
 - **[SuSiE](https://github.com/stephenslab/susieR)** – Bayesian fine-mapping and credible set estimation  
+
 ---
-
-## Get Started!
-
-1. Install [`Nextflow`](https://www.nextflow.io/) `(>=25.10.0)`
-
-2. Install [`Docker`](https://www.docker.com/) or [`Singularity`](https://docs.sylabs.io/guides/3.0/user-guide/)
-
-3. Clone repo and run!
-   
-```bash
-git clone https://github.com/guillermocomesanacimadevila/graft.git
-```
-
-```bash
-cd graft/
-```
 
 ## Usage
 
