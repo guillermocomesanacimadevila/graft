@@ -1,4 +1,4 @@
-name: graft_v1 # brew install zstd
+name: graft # brew install zstd
 channels:
   - conda-forge
   - bioconda
