@@ -70,11 +70,11 @@ docker build --no-cache \
 
 ---
 
-### Run graft! (with Docker)
+### Run graft! (SELECT either Docker if ran locally or Singularity if ran on SLURM HPC)
 
 ```bash
 nextflow run . \
-  -profile docker \
+  -profile <docker/singularity> \
   -c conf/local/nextflow.config \
   -params-file assets/params.stage1.yaml \
   --input assets/gwas.tsv \
