@@ -51,6 +51,6 @@ RUN micromamba create -y -n graft -f /tmp/environment.yml && micromamba clean -a
 # RUN chmod +x /usr/local/bin/smr
 # USER $MAMBA_USER
 ENV MAMBA_ROOT_PREFIX=/opt/conda
-ENV PATH=/opt/conda/envs/graft/bin:/opt/conda/bin:$PATH
-ENV CONDA_DEFAULT_ENV=graft_v1
+ENV PATH=/opt/conda/envs/graft_v1/bin:/opt/conda/bin:$PATH
+ENV CONDA_DEFAULT_ENV=graft
 CMD ["bash"]
