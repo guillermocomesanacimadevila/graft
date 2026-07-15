@@ -78,9 +78,7 @@ nextflow run . \
   -c conf/local/nextflow.config \
   -params-file assets/params.stage1.yaml \
   --input assets/gwas.tsv \
-  --pairs assets/ldsc_pairs.tsv \
-  --qtls assets/qtls.tsv \
-  -process.maxForks 1
+  --pairs assets/ldsc_pairs.tsv 
 ```
 
 > [!WARNING]
@@ -101,9 +99,6 @@ nextflow run . \
 - **[MAGMA](https://ctg.cncr.nl/software/magma)** – Gene-level and pathway enrichment analysis  
 - **[COLOC](https://cran.r-project.org/web/packages/coloc/)** – Bayesian colocalisation analysis  
 - **[SuSiE](https://github.com/stephenslab/susieR)** – Bayesian fine-mapping and credible set estimation  
-- **[FUMA](https://fuma.ctglab.nl/)** – Functional mapping and annotation of GWAS loci  
-- **[SMR + HEIDI](https://yanglab.westlake.edu.cn/software/smr/)** – Summary-data-based Mendelian randomisation for GWAS–QTL integration  
-
 ---
 
 ## Get Started!
@@ -126,28 +121,6 @@ cd graft/
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
-
-```bash
-nextflow run main.nf \
-  -profile docker \
-  -c conf/local/nextflow.config \
-  --input assets/gwas.tsv \
-  --pairs assets/ldsc_pairs.tsv \
-  --outdir results
-```
-
----
-
-** Note ** 
-
-> You can also run each method within [`workflows/graft`], individually like so =>
-
-```bash
-nextflow run workflows/graft/main_<input_method>.nf \
-  -profile docker \
-  -c conf/local/nextflow.config \
-  -params-file assets/params.stage1.yaml 
-```
 
 ---
 
