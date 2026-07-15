@@ -1,4 +1,4 @@
-name: graft
+name: graft_v1 # brew install zstd
 channels:
   - conda-forge
   - bioconda
@@ -17,3 +17,4 @@ dependencies:
       - polars
       - liftover
       - adjustText
+      - cellxgene-census
