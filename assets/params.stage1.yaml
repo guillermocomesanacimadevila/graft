@@ -26,15 +26,11 @@ run_twosamplemr: false          # Run TwoSampleMR Mendelian randomisation
 run_magma: false                # Run MAGMA gene-level analysis
 run_lava: false                 # Run LAVA local genetic correlation
 run_conjfdr: false              # Run conjunctional FDR cross-trait pleiotropy
-run_def_loci: true              # Define loci from significant signals
-run_gwas_coloc: false            # Run GWAS-GWAS colocalisation
-run_susie: false                # Run SuSiE fine-mapping / credible-set overlap
-run_fuma: false                 # Prepare/export FUMA inputs and post-processing
+run_def_loci: false             # Define loci from significant signals
+run_gwas_coloc: false           # Run GWAS-GWAS colocalisation
+run_susie: true                 # Run SuSiE fine-mapping / credible-set overlap
+run_fuma: true                  # Prepare/export FUMA inputs and post-processing
 run_target_genes: false         # Map loci/signals to target genes
-run_qtl_manifest: false         # Generate QTL manifest from QTL metadata
-run_smr: false                  # Run SMR/HEIDI using GWAS and QTL data
-run_smr_shared: false
-
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Input / output
@@ -44,7 +40,6 @@ run_smr_shared: false
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 input: "assets/gwas.tsv"          # GWAS samplesheet containing trait metadata and summary-statistic paths
 pairs: "assets/ldsc_pairs.tsv"    # Trait-pair file defining pairwise analyses
-qtls: "assets/qtls.tsv"           # QTL dataset manifest used for QTL/SMR workflows
 outdir: "results"                 # Root output directory for all pipeline results
 
 
@@ -127,7 +122,7 @@ window: 500000                    # Fixed genomic window around lead SNPs in bas
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Parameters for credible-set inference and cross-trait credible-set overlap.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-susie_L: 1                        # Maximum number of causal components; L=1 is conservative with external LD
+susie_L: 10                       # Maximum number of causal components; L=1 is conservative with external LD
 max_iter: 5000                    # Maximum SuSiE optimisation iterations
 
 
@@ -137,37 +132,3 @@ max_iter: 5000                    # Maximum SuSiE optimisation iterations
 # Parameters for mapping loci or prioritised variants to nearby genes.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 mapping_range: 10                 # Distance in kb added around locus start/end when mapping genes
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# QTL integration
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# QTL datasets selected from the QTL manifest.
-# Values must match the `id` column in assets/qtls.tsv.
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-qtl_ids:
-  - eqtlgen_cis                  # Bulk cis-eQTL dataset
-  - fujita_eqtl                  # Single-cell eQTL dataset
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# SMR / HEIDI
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Parameters for Summary-data-based Mendelian Randomisation and HEIDI filtering.
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-smr_fdr_thresh: 0.05              # FDR threshold for significant SMR gene/probe associations
-heidi_thresh: 0.01                # HEIDI p-value threshold; values above threshold support no heterogeneity
-default_qtl_freq: 0.5             # Default allele frequency used when QTL frequency is unavailable
-peqtl_smr: 5e-8                   # eQTL p-value threshold for selecting probes for SMR
-peqtl_heidi: 1.57e-3              # eQTL p-value threshold used for HEIDI testing
-thread_num: 8                     # Number of threads passed to SMR/HEIDI
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Single-cell QTL behaviour
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Controls which cell types are selected from single-cell QTL datasets.
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-all_cell_types: false             # true = run all cell types found in QTL directory; false = use cell_type_list
-cell_type_list:
-  - Oli                           # Cell types to run when all_cell_types is false
