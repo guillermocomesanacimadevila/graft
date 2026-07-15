@@ -55,7 +55,7 @@
 
 ---
 
-### Build Docker image
+### Build Docker image (if local)
 
 ```bash
 cd graft/
@@ -70,11 +70,11 @@ docker build --no-cache \
 
 ---
 
-### Run graft! (with Docker)
+### Run graft! (with Docker if local or with Singularity if on SLURM HPC)
 
 ```bash
 nextflow run . \
-  -profile docker \
+  -profile <docker/singularity> \
   -c conf/local/nextflow.config \
   -params-file assets/params.stage1.yaml \
   --input assets/gwas.tsv \
