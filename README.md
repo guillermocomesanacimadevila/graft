@@ -101,7 +101,7 @@ nextflow run . \
     -params-file assets/params.stage1.yaml \
     --input assets/gwas.tsv \
     --pairs assets/ldsc_pairs.tsv \
-    --container "$HOME/graft/env/graft_1.0.0.sif"
+    --container "$env/graft_1.0.0.sif"
 ```
 
 ---
